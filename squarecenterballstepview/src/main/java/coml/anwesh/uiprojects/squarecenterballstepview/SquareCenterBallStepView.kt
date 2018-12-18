@@ -211,4 +211,12 @@ class SquareCenterBallStepView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+        fun create(activity : Activity) : SquareCenterBallStepView {
+            val view : SquareCenterBallStepView = SquareCenterBallStepView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
