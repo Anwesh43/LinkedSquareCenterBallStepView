@@ -21,6 +21,8 @@ val strokeFactor : Int = 90
 val sizeFactor : Float = 2.5f
 val color : Int = Color.parseColor("#283593")
 val backColor : Int = Color.parseColor("#BDBDBD")
+val delay : Long = 25
+val radiusFactor : Int = 6
 
 fun Int.getInverse() : Float = 1f / this
 
@@ -49,7 +51,7 @@ fun Canvas.drawSCBNode(i : Int, scale : Float, paint : Paint) {
         val sc : Float = sc1.divideScale(j, balls)
         save()
         rotate(90f * j)
-        drawCircle(size/2 * sc, 0f, size/10, paint)
+        drawCircle(size/2 * sc, 0f, size/ radiusFactor, paint)
         restore()
     }
     restore()
@@ -100,7 +102,7 @@ class SquareCenterBallStepView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(delay)
                     view.invalidate()
                 } catch(ex : Exception) {
 
@@ -198,6 +200,7 @@ class SquareCenterBallStepView(ctx : Context) : View(ctx) {
 
         fun render(canvas : Canvas, paint : Paint) {
             canvas.drawColor(backColor)
+            scbs.draw(canvas, paint)
             animator.animate {
                 scbs.update {i, scl ->
                     animator.stop()
@@ -216,7 +219,7 @@ class SquareCenterBallStepView(ctx : Context) : View(ctx) {
         fun create(activity : Activity) : SquareCenterBallStepView {
             val view : SquareCenterBallStepView = SquareCenterBallStepView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
